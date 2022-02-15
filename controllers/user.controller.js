@@ -59,12 +59,56 @@ exports.updateUser = (req, res, next) => {
 // Delete  ----------------------------
 exports.deleteUser = async (req, res) => {
     if (!ObjectID.isValid(req.params.id))
-      return res.status(400).send("ID unknown : " + req.params.id);
-  
+    return res.status(400).send("ID unknown : " + req.params.id);
+    
     try {
-      await User.remove({ _id: req.params.id }).exec();
-      res.status(200).json({ message: "Successfully deleted. " });
+        await User.deleteOne({ _id: req.params.id }).exec();
+        res.status(200).json({ message: "Successfully deleted. " });
     } catch (err) {
-      return res.status(500).json({ message: err });
+        return res.status(500).json({ message: err });
     }
 };
+
+//  WishList  ----------------------------
+// exports.wishList = async (req, res) => {
+//     if (
+//       !ObjectID.isValid(req.params.id) ||
+//       !ObjectID.isValid(req.body.idToAddToList)
+//     )
+//       return res.status(400).send("ID unknown : " + req.params.id);
+  
+//     try {
+//       await User.findByIdAndUpdate(
+//         req.params.id,
+//         { $addToSet: { wishList: req.params.idToItem } },
+//         { new: true, upsert: true },
+//         (err, docs) => {
+//           if (err) return res.status(400).jsos(err);
+//         }
+//       );
+//     } catch (err) {
+//       return res.status(500).json({ message: err });
+//     }
+//   };
+  
+// exports.removeFromWishlist = async (req, res) => {
+//   if (
+//     !ObjectID.isValid(req.params.id) ||
+//     !ObjectID.isValid(req.body.idToRemoveFromList)
+//   )
+//     return res.status(400).send("ID unknown : " + req.params.id);
+
+//   try {
+//     await User.findByIdAndUpdate(
+//       req.params.id,
+//       { $pull: { wishList: req.body.idToRemoveFromList } },
+//       { new: true, upsert: true },
+//       (err, docs) => {
+//         if (!err) res.status(201).json(docs);
+//         else return res.status(400).jsos(err);
+//       }
+//     );
+//   } catch (err) {
+//     return res.status(500).json({ message: err });
+//   }
+// };

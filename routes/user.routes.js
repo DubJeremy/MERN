@@ -12,4 +12,7 @@ router.get("/:id", userCtrl.userInfo);
 router.put("/:id", userCtrl.updateUser);
 router.delete('/:id', userCtrl.deleteUser);
 
+// router.patch("/addtowishlist/:id", userCtrl.wishList);
+// router.patch("/removetowishlist/:id", userCtrl.removeFromWishlist);
+
 module.exports = router;
